@@ -72,15 +72,21 @@ interface CostRule {
 }
 
 const COST_RULES: CostRule[] = [
+  { qid: "financial:q1", when: "red", label: "Perda por atraso em recebíveis não monitorados", min: 0.01, max: 0.02 },
+  { qid: "financial:q1", when: "yellow", label: "Recebíveis parcialmente monitorados", min: 0.005, max: 0.01 },
   { qid: "financial:q2", when: "red", label: "Inadimplência sem controle", min: 0.03, max: 0.05 },
   { qid: "financial:q2", when: "yellow", label: "Inadimplência parcialmente controlada", min: 0.01, max: 0.025 },
   { qid: "financial:q3", when: "red", label: "Compras sem processo de aprovação", min: 0.015, max: 0.023 },
   { qid: "financial:q4", when: "red", label: "Multas e juros por pagamentos em atraso", min: 0.0016, max: 0.0024 },
   { qid: "financial:q5", when: "red", label: "Erros não detectados (conciliação)", min: 0.005, max: 0.010 },
+  { qid: "commercial:q1", when: "red", label: "Clientes não lucrativos sem priorização", qualitative: true },
   { qid: "commercial:q2", when: "red", label: "Margem perdida em descontos sem critério", min: 0.05, max: 0.10 },
   { qid: "commercial:q2", when: "yellow", label: "Margem cedida sem necessidade", min: 0.02, max: 0.05 },
   { qid: "commercial:q3", when: "red", label: "Capital de giro imobilizado (ciclo longo)", min: 0.08, max: 0.15 },
-  { qid: "commercial:q1", when: "red", label: "Clientes não lucrativos sem priorização", qualitative: true },
+  { qid: "commercial:q4", when: "red", label: "Custo de antecipação recorrente (sobre 50% do faturamento)", min: 0.01, max: 0.02 },
+  { qid: "commercial:q4", when: "yellow", label: "Custo de antecipação eventual (sobre 50% do faturamento)", min: 0.004, max: 0.0075 },
+  { qid: "commercial:q5", when: "red", label: "Custo de crédito emergencial por descasamento de ciclo", min: 0.01, max: 0.025 },
+  { qid: "commercial:q5", when: "yellow", label: "Risco de descasamento vendas x caixa", min: 0.005, max: 0.01 },
 ];
 
 export function buildCostRows(
@@ -129,7 +135,7 @@ const OUTCOME_RULES: OutcomeRule[] = [
   { qid: "financial:q5", current: "Conciliação mensal ou inexistente", future: "Conciliação semanal — erros detectados em 48h" },
   { qid: "commercial:q2", current: "Desconto decidido na hora", future: "Piso de margem definido — desconto só dentro do aprovado" },
   { qid: "commercial:q3", current: "Cliente define as condições", future: "Tabela padrão — empresa retoma o controle" },
-  { qid: "commercial:q4", current: "Caixa imprevisível", future: "Forecast confiável de 30/60/90 dias" },
+  { qid: "commercial:q4", current: "Antecipação de recebíveis recorrente", future: "Gestão de caixa que elimina necessidade de antecipação" },
   { qid: "commercial:q5", current: "Vende muito, caixa aperta", future: "Ciclo financeiro de vendas mapeado e gerenciado" },
 ];
 
@@ -163,7 +169,7 @@ const SHORT_LABELS: Record<string, string> = {
   "commercial:q1": "Lucratividade não medida",
   "commercial:q2": "Desconto sem critério",
   "commercial:q3": "Cliente define condições",
-  "commercial:q4": "Sem forecast de caixa",
+  "commercial:q4": "Antecipação de recebíveis recorrente",
   "commercial:q5": "Vendas x caixa descasados",
 };
 
@@ -244,7 +250,7 @@ const PAIN_LABELS: Record<string, string> = {
   "commercial:q1": "lucratividade por cliente não medida",
   "commercial:q2": "descontos concedidos sem critério",
   "commercial:q3": "condições comerciais ditadas pelo cliente",
-  "commercial:q4": "sem previsibilidade de caixa",
+  "commercial:q4": "antecipação de recebíveis recorrente",
   "commercial:q5": "vendas e caixa descasados",
 };
 
