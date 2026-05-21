@@ -6,6 +6,8 @@ export type TrafficLight = "green" | "yellow" | "red" | null;
 export interface DiagnosticState {
   companyName: string;
   consultantName: string;
+  consultantEmail: string;
+  consultantPhone: string;
   date: string;
   monthlyRevenue: number;
   companyAge: "" | "less_1" | "1_3" | "3_7" | "more_7";
@@ -23,6 +25,8 @@ export interface Meeting {
   id: string;
   companyName: string;
   consultantName: string;
+  consultantEmail: string;
+  consultantPhone: string;
   date: string;
   monthlyRevenue: number;
   companyAge: string;
@@ -45,6 +49,8 @@ const todayISO = () => new Date().toISOString().slice(0, 10);
 const initialState = (): DiagnosticState => ({
   companyName: "",
   consultantName: "",
+  consultantEmail: "",
+  consultantPhone: "",
   date: todayISO(),
   monthlyRevenue: 0,
   companyAge: "",
@@ -64,6 +70,8 @@ function isValid(s: unknown): s is DiagnosticState {
   if (
     typeof o.companyName === "string" &&
     typeof o.consultantName === "string" &&
+    (typeof o.consultantEmail === "undefined" || typeof o.consultantEmail === "string") &&
+    (typeof o.consultantPhone === "undefined" || typeof o.consultantPhone === "string") &&
     typeof o.date === "string" &&
     typeof o.monthlyRevenue === "number" &&
     typeof o.meetingMotivation === "string" &&
@@ -85,6 +93,8 @@ function stateToMeeting(state: DiagnosticState, status: "draft" | "completed"): 
   return {
     companyName: state.companyName,
     consultantName: state.consultantName,
+    consultantEmail: state.consultantEmail,
+    consultantPhone: state.consultantPhone,
     date: state.date,
     monthlyRevenue: state.monthlyRevenue,
     companyAge: state.companyAge,
@@ -166,6 +176,8 @@ export function DiagnosticProvider({ children }: { children: ReactNode }) {
     const loaded: DiagnosticState = {
       companyName: meeting.companyName,
       consultantName: meeting.consultantName,
+      consultantEmail: meeting.consultantEmail || "",
+      consultantPhone: meeting.consultantPhone || "",
       date: meeting.date,
       monthlyRevenue: meeting.monthlyRevenue,
       companyAge: (meeting.companyAge || "") as DiagnosticState["companyAge"],

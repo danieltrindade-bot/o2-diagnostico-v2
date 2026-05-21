@@ -57,10 +57,12 @@ function Screen1() {
 
   const missingCompany = !state.companyName.trim();
   const missingConsultant = !state.consultantName.trim();
+  const missingEmail = !state.consultantEmail.trim();
+  const missingPhone = !state.consultantPhone.trim();
 
   const handleNext = () => {
     setAttempted(true);
-    if (missingCompany || missingConsultant) return;
+    if (missingCompany || missingConsultant || missingEmail || missingPhone) return;
     goTo(2);
   };
 
@@ -87,14 +89,48 @@ function Screen1() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium">Nome do Consultor</label>
+          <label className="text-sm font-medium">Seu Nome</label>
           <Input
             value={state.consultantName}
             onChange={(e) => setState({ consultantName: e.target.value })}
-            placeholder="Seu nome"
+            placeholder="Ex: João Silva"
             className={cn("h-10", attempted && missingConsultant && "border-destructive")}
           />
           {attempted && missingConsultant && (
+            <p className="text-xs text-destructive">Campo obrigatório</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium">E-mail</label>
+          <Input
+            type="email"
+            value={state.consultantEmail}
+            onChange={(e) => setState({ consultantEmail: e.target.value })}
+            placeholder="Ex: joao@empresa.com"
+            className={cn("h-10", attempted && missingEmail && "border-destructive")}
+          />
+          {attempted && missingEmail && (
+            <p className="text-xs text-destructive">Campo obrigatório</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Celular (com DDD)</label>
+          <Input
+            type="tel"
+            value={state.consultantPhone}
+            onChange={(e) => {
+              const raw = e.target.value.replace(/\D/g, "").slice(0, 11);
+              let formatted = raw;
+              if (raw.length > 2) formatted = `(${raw.slice(0, 2)}) ${raw.slice(2)}`;
+              if (raw.length > 7) formatted = `(${raw.slice(0, 2)}) ${raw.slice(2, 7)}-${raw.slice(7)}`;
+              setState({ consultantPhone: formatted });
+            }}
+            placeholder="(11) 99999-9999"
+            className={cn("h-10", attempted && missingPhone && "border-destructive")}
+          />
+          {attempted && missingPhone && (
             <p className="text-xs text-destructive">Campo obrigatório</p>
           )}
         </div>
