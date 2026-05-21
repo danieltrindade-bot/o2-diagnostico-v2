@@ -31,7 +31,7 @@ function LandingPage() {
             <span className="text-primary">gestão em resultado</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-[fadeSlideUp_0.8s_ease-out_0.6s_both]">
-            Há 13 anos ajudando empresários a tomarem decisões mais técnicas, unindo especialistas financeiros, metodologia proprietária e plataforma de inteligência.
+            Há 9 anos ajudando empresários a tomarem decisões mais técnicas, unindo especialistas financeiros, metodologia proprietária e plataforma de inteligência.
           </p>
           <div className="mt-10 flex items-center justify-center animate-[fadeSlideUp_0.8s_ease-out_0.8s_both]">
             <Link to="/diagnostico">
