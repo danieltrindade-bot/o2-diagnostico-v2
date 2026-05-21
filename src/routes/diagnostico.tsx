@@ -56,13 +56,14 @@ function Screen1() {
   const canSaveDraft = state.companyName.trim().length > 0;
 
   const missingCompany = !state.companyName.trim();
+  const missingRevenue = state.monthlyRevenue <= 0;
   const missingConsultant = !state.consultantName.trim();
   const missingEmail = !state.consultantEmail.trim();
   const missingPhone = !state.consultantPhone.trim();
 
   const handleNext = () => {
     setAttempted(true);
-    if (missingCompany || missingConsultant || missingEmail || missingPhone) return;
+    if (missingCompany || missingRevenue || missingConsultant || missingEmail || missingPhone) return;
     saveMeeting("draft");
     goTo(2);
   };
@@ -85,6 +86,18 @@ function Screen1() {
             className={cn("h-10", attempted && missingCompany && "border-destructive")}
           />
           {attempted && missingCompany && (
+            <p className="text-xs text-destructive">Campo obrigatório</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Faturamento médio mensal</label>
+          <CurrencyInput
+            value={state.monthlyRevenue}
+            onValueChange={(v) => setState({ monthlyRevenue: v })}
+            className={cn(attempted && missingRevenue && "border-destructive")}
+          />
+          {attempted && missingRevenue && (
             <p className="text-xs text-destructive">Campo obrigatório</p>
           )}
         </div>
@@ -165,13 +178,12 @@ function Screen2() {
   const { state, setState, goTo, saveMeeting } = useDiagnostic();
   const [attempted, setAttempted] = useState(false);
 
-  const missingRevenue = state.monthlyRevenue <= 0;
   const missingAge = !state.companyAge;
   const missingGrowth = !state.growth;
 
   const handleNext = () => {
     setAttempted(true);
-    if (missingRevenue || missingAge || missingGrowth) return;
+    if (missingAge || missingGrowth) return;
     saveMeeting("draft");
     goTo(3);
   };
@@ -180,21 +192,6 @@ function Screen2() {
     <div className="mx-auto max-w-2xl">
       <ScreenHeader title="Entendimento do Negócio" step={2} />
       <div className="rounded-2xl border border-border bg-card p-8 space-y-6">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Faturamento mensal médio</label>
-          <CurrencyInput
-            value={state.monthlyRevenue}
-            onValueChange={(v) => setState({ monthlyRevenue: v })}
-          />
-          {attempted && missingRevenue ? (
-            <p className="text-xs text-destructive">Campo obrigatório</p>
-          ) : (
-            <p className="text-xs text-muted-foreground">
-              Usado para calcular estimativas de custo
-            </p>
-          )}
-        </div>
-
         <div className="space-y-2">
           <label className="text-sm font-medium">Há quanto tempo a empresa existe?</label>
           <Select
