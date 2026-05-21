@@ -241,12 +241,20 @@ function CostTable({ rows }: { rows: CostRow[] }) {
                   </tr>
                 ))}
                 {hasQuantitative && (
-                  <tr className="border-t border-border">
-                    <td className="pt-4 font-semibold">Estimativa total de perdas mensais</td>
-                    <td className="pt-4 text-right font-bold text-[var(--color-critical)]">
-                      {formatBRL(totalMin)} — {formatBRL(totalMax)}
-                    </td>
-                  </tr>
+                  <>
+                    <tr className="border-t border-border">
+                      <td className="pt-4 font-semibold">Estimativa total de perdas mensais</td>
+                      <td className="pt-4 text-right font-bold text-[var(--color-critical)]">
+                        {formatBRL(totalMin)} — {formatBRL(totalMax)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pt-2 pb-1 font-semibold">Estimativa total de perdas anuais</td>
+                      <td className="pt-2 pb-1 text-right font-bold text-[var(--color-critical)] text-lg">
+                        {formatBRL(totalMin * 12)} — {formatBRL(totalMax * 12)}
+                      </td>
+                    </tr>
+                  </>
                 )}
               </tbody>
             </table>
@@ -254,7 +262,7 @@ function CostTable({ rows }: { rows: CostRow[] }) {
           <div className="mt-4 space-y-0.5 text-[10px] leading-relaxed text-muted-foreground/70">
             <p>Estimativas baseadas em benchmarks de PMEs com faturamento entre R$ 300 mil e R$ 3 milhões/mês.</p>
             <p><sup>1</sup> Considerando 1% a 2% do faturamento mensal em recebíveis sem acompanhamento adequado.</p>
-            <p><sup>2</sup> Considerando 3% a 5% do faturamento mensal em inadimplência sem régua de cobrança ativa.</p>
+            <p><sup>2</sup> Considerando 1,5% a 2,5% do faturamento mensal em inadimplência sem régua de cobrança ativa.</p>
             <p><sup>3</sup> Pesquisas de procurement indicam economia média de 10% a 15% com processo de cotação estruturado.</p>
             <p><sup>4</sup> Custo de antecipação de recebíveis calculado sobre 50% do faturamento (estimativa conservadora), com taxa de 2% a 4%.</p>
             <p><sup>5</sup> Custo de crédito emergencial estimado entre 1% e 2,5% do faturamento por descasamento entre vendas e caixa.</p>
