@@ -1,8 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import {
   AlertTriangle,
   Download,
+  RefreshCw,
 } from "lucide-react";
 import { exportDiagnosticPDF } from "@/lib/pdf-export";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -28,7 +29,8 @@ export const Route = createFileRoute("/resultados")({
 });
 
 function ResultadosPage() {
-  const { state } = useDiagnostic();
+  const { state, reset } = useDiagnostic();
+  const navigate = useNavigate();
   const { data: config, isLoading, error, refetch } = useDiagnosticConfig();
 
   const hasData =
@@ -107,9 +109,12 @@ function ResultadosPage() {
             <CostTable rows={costRows} />
             <AlertPills items={alerts} />
 
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center gap-3 pt-4">
               <Button variant="outline" onClick={handleExportPDF}>
                 <Download className="mr-2 h-4 w-4" /> Exportar PDF
+              </Button>
+              <Button variant="outline" onClick={() => { reset(); navigate({ to: "/diagnostico" }); }}>
+                <RefreshCw className="mr-2 h-4 w-4" /> Novo Diagnóstico
               </Button>
             </div>
           </>
