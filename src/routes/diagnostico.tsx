@@ -63,6 +63,7 @@ function Screen1() {
   const handleNext = () => {
     setAttempted(true);
     if (missingCompany || missingConsultant || missingEmail || missingPhone) return;
+    saveMeeting("draft");
     goTo(2);
   };
 
@@ -161,7 +162,7 @@ function Screen1() {
 }
 
 function Screen2() {
-  const { state, setState, goTo } = useDiagnostic();
+  const { state, setState, goTo, saveMeeting } = useDiagnostic();
   const [attempted, setAttempted] = useState(false);
 
   const missingRevenue = state.monthlyRevenue <= 0;
@@ -171,6 +172,7 @@ function Screen2() {
   const handleNext = () => {
     setAttempted(true);
     if (missingRevenue || missingAge || missingGrowth) return;
+    saveMeeting("draft");
     goTo(3);
   };
 
