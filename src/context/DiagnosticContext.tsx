@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
 import { selectAll, insertRows, updateRow } from "@/lib/local-store";
+import { sendLead } from "@/lib/lead-webhook";
 
 export type TrafficLight = "green" | "yellow" | "red" | null;
 
@@ -162,6 +163,7 @@ export function DiagnosticProvider({ children }: { children: ReactNode }) {
       const existing = selectAll<Meeting>(MEETINGS_TABLE).find((m) => m.id === effective.meetingId);
       if (existing) {
         updateRow(MEETINGS_TABLE, effective.meetingId, data);
+        sendLead({ ...data, id: effective.meetingId });
         return effective.meetingId;
       }
     }
@@ -169,6 +171,7 @@ export function DiagnosticProvider({ children }: { children: ReactNode }) {
     const id = crypto.randomUUID();
     insertRows(MEETINGS_TABLE, [{ ...data, id, createdAt: now }]);
     setStateRaw((prev) => ({ ...prev, meetingId: id }));
+    sendLead({ ...data, id, createdAt: now });
     return id;
   }, [state]);
 
