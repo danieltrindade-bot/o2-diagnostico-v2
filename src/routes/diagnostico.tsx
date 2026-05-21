@@ -225,7 +225,7 @@ function Screen2() {
             <SelectContent>
               <SelectItem value="strong">Crescimento forte (+30%)</SelectItem>
               <SelectItem value="moderate">Crescimento moderado (+10%)</SelectItem>
-              <SelectItem value="stable">Estável (0%)</SelectItem>
+              <SelectItem value="stable">Estável (até 10%)</SelectItem>
               <SelectItem value="declining">Em queda (-10%)</SelectItem>
             </SelectContent>
           </Select>
