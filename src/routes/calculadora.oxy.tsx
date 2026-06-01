@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { calcSetupPriceFromRules, formatBRL, type SegmentType } from "@/lib/pricing-shared";
 import { useOxyPricing } from "@/hooks/use-pricing";
-import { CalcLoadingSkeleton, ErrorState, useCountUp } from "@/components/calc-ui";
+import { CalcLoadingSkeleton, ErrorState } from "@/components/calc-ui";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Row } from "@/components/calc-row";
 import { InfoTooltip, TOOLTIPS } from "@/components/InfoTooltip";
@@ -49,7 +49,6 @@ function OxyPage() {
     ? calcSetupPriceFromRules(rules, monthlyRevenue, cnpjCount, segmentType)
     : { classification: "padrao" as const, base: 0, surcharge: 0, total: 0 };
   const parcela = result.total / 12;
-  const animatedParcela = useCountUp(parcela);
   const [showPrices, setShowPrices] = useState(false);
 
   return (
@@ -60,7 +59,7 @@ function OxyPage() {
         </Link>
         <Breadcrumbs items={[{ label: "Serviços", to: "/servicos" }, { label: "Oxy + Gênio" }]} />
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Oxy + Gênio — Plataforma de Dados + IA</h1>
+          <h1 className="font-bold tracking-[0.005em]" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>Oxy + Gênio — Plataforma de Dados + IA</h1>
         </div>
 
         <ProductPresentation serviceKey="oxy" title="Oxy + Gênio" />
@@ -70,7 +69,7 @@ function OxyPage() {
 
         {rules && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <section className="rounded-2xl border border-border bg-card p-6 space-y-4">
+            <section className="rounded-2xl border border-border bg-card p-7 space-y-4">
               <h2 className="text-lg font-semibold">Parâmetros</h2>
               <div className="space-y-2">
                 <Label>Faturamento mensal</Label>
@@ -111,9 +110,9 @@ function OxyPage() {
               </div>
             </section>
 
-            <aside className="rounded-2xl border-2 border-primary bg-card p-6"
+            <aside className="rounded-2xl border-2 border-primary bg-card p-7"
                    style={{ backgroundColor: "color-mix(in oklab, var(--color-primary) 6%, var(--card))" }}>
-              <p className="text-xs uppercase tracking-wider text-primary">Investimento</p>
+              <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Investimento</p>
               {showPrices ? (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <Row label="Classificação" value={result.classification === "padrao" ? "Padrão" : "Complexo"} />
@@ -124,11 +123,11 @@ function OxyPage() {
                   <Row label="Valor total do projeto" value={formatBRL(result.total)} bold />
 
                   <div className="mt-5 rounded-xl bg-primary/15 border border-primary p-5">
-                    <div className="flex items-center gap-2 text-primary text-xs uppercase tracking-wider">
+                    <div className="flex items-center gap-2 text-primary font-mono text-[11px] tracking-[0.14em] uppercase">
                       <CreditCard className="h-4 w-4" /> No cartão
                     </div>
                     <p className="text-3xl md:text-4xl font-bold text-primary mt-1 tabular-nums">
-                      12x de {formatBRL(animatedParcela)}
+                      12x de {formatBRL(parcela)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Valor total: {formatBRL(result.total)}
@@ -136,7 +135,7 @@ function OxyPage() {
                   </div>
 
                   <div className="mt-5">
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Inclui</p>
+                    <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-2">Inclui</p>
                     <ul className="space-y-1.5">
                       {INCLUDES.map((i) => (
                         <li key={i} className="flex items-start gap-2 text-sm">
@@ -175,7 +174,7 @@ function OxyPage() {
                 <div className="mt-4">
                   <Row label="Classificação" value={result.classification === "padrao" ? "Padrão" : "Complexo"} />
                   <div className="mt-5">
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Inclui</p>
+                    <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-2">Inclui</p>
                     <ul className="space-y-1.5">
                       {INCLUDES.map((i) => (
                         <li key={i} className="flex items-start gap-2 text-sm">

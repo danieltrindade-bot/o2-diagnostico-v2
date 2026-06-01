@@ -80,10 +80,14 @@ function ServicosPage() {
     <div className="min-h-screen bg-background text-foreground px-4 py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-10">
-          <h1 className="text-4xl font-bold tracking-tight">
+          <div className="eyebrow mb-4 inline-flex items-center gap-2.5">
+            <span className="w-[18px] h-px bg-primary" />
+            <span className="text-primary">Serviços</span>
+          </div>
+          <h1 className="font-display font-bold uppercase leading-[1.05] tracking-[0.005em]" style={{ fontSize: "clamp(36px, 5.6vw, 72px)" }}>
             {hasDiagnostic ? "Serviços Recomendados" : "Nossos Serviços"}
           </h1>
-          <p className="text-muted-foreground mt-2">Selecione um serviço para precificar</p>
+          <p className="text-muted-foreground mt-3" style={{ fontSize: "clamp(16px, 2vw, 18px)" }}>Selecione um serviço para precificar</p>
           {!hasDiagnostic && (
             <p className="text-sm text-muted-foreground/80 mt-3">
               Faça o{" "}
@@ -102,7 +106,7 @@ function ServicosPage() {
               <div
                 key={s.id}
                 className={cn(
-                  "group rounded-2xl border bg-card p-6 flex flex-col transition-colors",
+                  "group rounded-2xl border bg-card p-7 flex flex-col transition-all duration-300",
                   recommended
                     ? "border-primary shadow-[0_0_0_1px_var(--color-primary)]"
                     : "border-border hover:border-primary/60",

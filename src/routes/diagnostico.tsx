@@ -41,11 +41,11 @@ function DiagnosticoPage() {
 function ScreenHeader({ title, step }: { title: string; step: number }) {
   return (
     <div className="mb-8">
-      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground mb-4">
+      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-4">
         <span className="h-1.5 w-1.5 rounded-full bg-primary" />
         Etapa {step} de 3
       </div>
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{title}</h1>
+      <h1 className="font-display font-bold uppercase leading-[1.05] tracking-[0.005em]" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>{title}</h1>
     </div>
   );
 }

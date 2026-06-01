@@ -144,11 +144,11 @@ function ScoreSummary({
   const dash = (pct / 100) * circumference;
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-8">
+    <div className="rounded-2xl border border-border bg-card p-7">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div>
-          <p className="text-xs uppercase tracking-wider text-muted-foreground">Empresa</p>
-          <h1 className="text-3xl font-bold mt-1">{companyName}</h1>
+          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground">Empresa</p>
+          <h1 className="font-bold mt-1" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>{companyName}</h1>
           {monthlyRevenue > 0 && (
             <p className="text-sm text-muted-foreground mt-1">
               Faturamento: {formatBRL(monthlyRevenue)}/mês
@@ -278,7 +278,7 @@ function AlertPills({ items }: { items: AlertItem[] }) {
   if (items.length === 0) return null;
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <h2 className="text-sm uppercase tracking-wider text-muted-foreground mb-3">
+      <h2 className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-3">
         Pontos de atenção
       </h2>
       <div className="flex flex-wrap gap-2">

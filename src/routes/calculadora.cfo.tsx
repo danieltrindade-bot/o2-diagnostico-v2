@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { exportCalculatorPDF } from "@/lib/pdf-export";
 import { formatBRL } from "@/lib/format";
 import { useCFOPricing, type CFOBaseRule, type CFOComplexityRule, type SetupPricingRule } from "@/hooks/use-pricing";
-import { CalcLoadingSkeleton, ErrorState, useCountUp } from "@/components/calc-ui";
+import { CalcLoadingSkeleton, ErrorState } from "@/components/calc-ui";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Row } from "@/components/calc-row";
 import { InfoTooltip, TOOLTIPS } from "@/components/InfoTooltip";
@@ -89,8 +89,6 @@ function CalculadoraCFOPage() {
 
   const setupParcela = setupResult.total / 12;
   const totalMensal = finalRecorrencia + setupParcela;
-  const animatedRecorrencia = useCountUp(finalRecorrencia);
-  const animatedTotal = useCountUp(totalMensal);
   const [showPrices, setShowPrices] = useState(false);
 
   return (
@@ -102,7 +100,7 @@ function CalculadoraCFOPage() {
         <Breadcrumbs items={[{ label: "Serviços", to: "/servicos" }, { label: "CFO as a Service" }]} />
 
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Calculadora — CFO as a Service</h1>
+          <h1 className="font-bold tracking-[0.005em]" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>Calculadora — CFO as a Service</h1>
           <p className="text-muted-foreground mt-2">Configure os parâmetros para precificar mensalidade e setup.</p>
         </div>
 
@@ -114,7 +112,7 @@ function CalculadoraCFOPage() {
         {data && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <section className="rounded-2xl border border-border bg-card p-6">
+              <section className="rounded-2xl border border-border bg-card p-7">
                 <h2 className="text-lg font-semibold mb-4">Parâmetros</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2 space-y-2">
@@ -186,8 +184,8 @@ function CalculadoraCFOPage() {
                         <Row label="Taxa governança" value={formatBRL(governanceFee)} />
 
                         <div className="mt-3 rounded-xl bg-primary/15 border border-primary p-4">
-                          <p className="text-xs uppercase tracking-wider text-primary">Valor mensal</p>
-                          <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{formatBRL(animatedRecorrencia)}</p>
+                          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Valor mensal</p>
+                          <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{formatBRL(finalRecorrencia)}</p>
                         </div>
                       </TabsContent>
 
@@ -198,7 +196,7 @@ function CalculadoraCFOPage() {
                         <Row label="Valor total setup" value={formatBRL(setupResult.total)} bold />
 
                         <div className="mt-3 rounded-xl bg-primary/15 border border-primary p-4">
-                          <p className="text-xs uppercase tracking-wider text-primary">Setup em 12x</p>
+                          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Setup em 12x no cartão</p>
                           <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{formatBRL(setupParcela)}<span className="text-sm font-normal text-primary/70">/mês</span></p>
                         </div>
                       </TabsContent>
@@ -206,10 +204,10 @@ function CalculadoraCFOPage() {
 
                     <div className="px-5 pb-5">
                       <div className="rounded-xl bg-primary/15 border border-primary p-4">
-                        <p className="text-xs uppercase tracking-wider text-primary">Investimento mensal total</p>
-                        <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{formatBRL(animatedTotal)}</p>
+                        <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Investimento mensal total</p>
+                        <p className="text-3xl font-bold text-primary mt-1 tabular-nums">{formatBRL(totalMensal)}</p>
                         <div className="mt-2 text-xs text-primary/70 space-y-0.5">
-                          <p>Recorrência: {formatBRL(finalRecorrencia)} + Setup 12x: {formatBRL(setupParcela)}</p>
+                          <p>Recorrência: {formatBRL(finalRecorrencia)} + Setup 12x no cartão: {formatBRL(setupParcela)}</p>
                         </div>
                       </div>
                       <Button
@@ -225,7 +223,7 @@ function CalculadoraCFOPage() {
                               ["Ajuste segmento", cnpjCount > 1 ? `+${segmentAdj}%` : "—"],
                               ["Taxa governança", formatBRL(governanceFee)],
                               ["Mensalidade", formatBRL(finalRecorrencia)],
-                              ["Setup (12x)", formatBRL(setupParcela)],
+                              ["Setup (12x no cartão)", formatBRL(setupParcela)],
                             ],
                             finalLabel: "Investimento mensal total",
                             finalValue: formatBRL(totalMensal),

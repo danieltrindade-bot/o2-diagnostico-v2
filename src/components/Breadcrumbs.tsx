@@ -9,7 +9,7 @@ export interface Crumb {
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex items-center flex-wrap gap-1.5 text-xs text-muted-foreground">
+      <ol className="flex items-center flex-wrap gap-2.5 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--fg-subtle)]">
         <li>
           <Link to="/" className="inline-flex items-center hover:text-foreground transition-colors">
             <Home className="h-3.5 w-3.5" />

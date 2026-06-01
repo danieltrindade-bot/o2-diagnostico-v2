@@ -247,15 +247,15 @@ export function ProductPresentation({ serviceKey, title }: { serviceKey: string;
   const hasStages = detail.stages && detail.stages.length > 0;
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6">
+    <section className="rounded-2xl border border-border bg-card p-7">
       <div className="rounded-xl bg-background/50 border border-border p-4 mb-5">
-        <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">O que é — {title}</p>
+        <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-1">O que é — {title}</p>
         <p className="text-sm leading-relaxed">{detail.what}</p>
       </div>
 
       {hasStages ? (
         <div className="mb-4">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
+          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-3">
             {serviceKey === "assessoria"
               ? "Jornada de Maturidade — 5 estágios de evolução"
               : "Escopo — Pilares de entrega"}
@@ -273,7 +273,7 @@ export function ProductPresentation({ serviceKey, title }: { serviceKey: string;
         </div>
       ) : (
         <div className="mb-4">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Escopo — O que entrega</p>
+          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-3">Escopo — O que entrega</p>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {detail.deliverables.map((d) => (
               <li key={d} className="flex items-start gap-2 text-sm">
@@ -287,7 +287,7 @@ export function ProductPresentation({ serviceKey, title }: { serviceKey: string;
 
       {detail.notIncluded && detail.notIncluded.length > 0 && (
         <div className="border-t border-border pt-4">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Não inclui</p>
+          <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-2">Não inclui</p>
           <div className="flex flex-wrap gap-2">
             {detail.notIncluded.map((n) => (
               <span key={n} className="text-xs text-muted-foreground bg-secondary rounded-full px-3 py-1">{n}</span>

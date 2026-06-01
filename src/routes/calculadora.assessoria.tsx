@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { CurrencyInput } from "@/components/ui/currency-input";
 import { formatBRL } from "@/lib/pricing-shared";
 import { useAssessoriaPricing, type AssessoriaRule } from "@/hooks/use-pricing";
-import { CalcLoadingSkeleton, ErrorState, useCountUp } from "@/components/calc-ui";
+import { CalcLoadingSkeleton, ErrorState } from "@/components/calc-ui";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Row } from "@/components/calc-row";
 import { InfoTooltip, TOOLTIPS } from "@/components/InfoTooltip";
@@ -67,7 +67,6 @@ function AssessoriaPage() {
   const valorMensal = Math.min(maxP, Math.max(minP, baseP + ajusteCnpj));
   const discount = DISCOUNTS.find((d) => d.id === discountId)!;
   const valorFinal = valorMensal * (1 - discount.percent / 100);
-  const animatedFinal = useCountUp(valorFinal);
   const [showPrices, setShowPrices] = useState(false);
 
   return (
@@ -78,7 +77,7 @@ function AssessoriaPage() {
         </Link>
         <Breadcrumbs items={[{ label: "Serviços", to: "/servicos" }, { label: "Assessoria Estratégica" }]} />
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Assessoria Estratégica</h1>
+          <h1 className="font-bold tracking-[0.005em]" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>Assessoria Estratégica</h1>
         </div>
 
         <ProductPresentation serviceKey="assessoria" title="Assessoria Estratégica" />
@@ -89,7 +88,7 @@ function AssessoriaPage() {
         {data && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-6">
-              <section className="rounded-2xl border border-border bg-card p-6 space-y-4">
+              <section className="rounded-2xl border border-border bg-card p-7 space-y-4">
                 <h2 className="text-lg font-semibold">Parâmetros</h2>
                 <div className="space-y-2">
                   <Label>Faturamento mensal</Label>
@@ -109,7 +108,7 @@ function AssessoriaPage() {
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-border bg-card p-6">
+              <section className="rounded-2xl border border-border bg-card p-7">
                 <h2 className="text-lg font-semibold mb-4">Desconto</h2>
                 <RadioGroup value={discountId} onValueChange={setDiscountId} className="space-y-2">
                   {DISCOUNTS.map((d) => (
@@ -127,9 +126,9 @@ function AssessoriaPage() {
               </section>
             </div>
 
-            <aside className="rounded-2xl border-2 border-primary bg-card p-6"
+            <aside className="rounded-2xl border-2 border-primary bg-card p-7"
                    style={{ backgroundColor: "color-mix(in oklab, var(--color-primary) 6%, var(--card))" }}>
-              <p className="text-xs uppercase tracking-wider text-primary">Investimento mensal</p>
+              <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Investimento mensal</p>
               {showPrices ? (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <Row label="Faixa de faturamento" value={tier?.label ?? "—"} />
@@ -148,9 +147,9 @@ function AssessoriaPage() {
                   )}
 
                   <div className="mt-5 rounded-xl bg-primary/15 border border-primary p-5">
-                    <p className="text-xs uppercase tracking-wider text-primary">Valor mensal</p>
+                    <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-primary">Valor mensal</p>
                     <p className="text-3xl md:text-4xl font-bold text-primary mt-1 tabular-nums">
-                      {formatBRL(animatedFinal)}
+                      {formatBRL(valorFinal)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-2">
                       Valores limitados entre {formatBRL(minP)} e {formatBRL(maxP)}/mês
@@ -158,7 +157,7 @@ function AssessoriaPage() {
                   </div>
 
                   <div className="mt-5">
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Inclui</p>
+                    <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-2">Inclui</p>
                     <ul className="space-y-1.5">
                       {INCLUDES.map((i) => (
                         <li key={i} className="flex items-start gap-2 text-sm">
@@ -198,7 +197,7 @@ function AssessoriaPage() {
                 <div className="mt-4">
                   <Row label="Faixa de faturamento" value={tier?.label ?? "—"} />
                   <div className="mt-5">
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Inclui</p>
+                    <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground mb-2">Inclui</p>
                     <ul className="space-y-1.5">
                       {INCLUDES.map((i) => (
                         <li key={i} className="flex items-start gap-2 text-sm">
