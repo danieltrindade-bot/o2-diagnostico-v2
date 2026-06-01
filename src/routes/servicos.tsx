@@ -5,6 +5,7 @@ import {
   Bot,
   Compass,
   Users,
+  Scale,
   ArrowRight,
   Sparkles,
 } from "lucide-react";
@@ -21,7 +22,7 @@ interface ServiceCard {
   id: string;
   name: string;
   description: string;
-  to: "/calculadora/bpo" | "/calculadora/cfo" | "/calculadora/oxy" | "/calculadora/assessoria" | "/calculadora/coordenador";
+  to: "/calculadora/bpo" | "/calculadora/cfo" | "/calculadora/oxy" | "/calculadora/assessoria" | "/calculadora/coordenador" | "/calculadora/tributario";
   Icon: typeof Briefcase;
 }
 
@@ -60,6 +61,13 @@ const SERVICES: ServiceCard[] = [
     description: "Coordenação financeira dedicada para estruturar e gerir sua operação",
     to: "/calculadora/coordenador",
     Icon: Users,
+  },
+  {
+    id: "tributario",
+    name: "Diagnóstico Tributário",
+    description: "Adequação à Reforma Tributária: diagnóstico, simulação de impacto e plano de transição",
+    to: "/calculadora/tributario",
+    Icon: Scale,
   },
 ];
 
